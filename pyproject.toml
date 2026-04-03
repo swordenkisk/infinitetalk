@@ -1,0 +1,68 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "infinitetalk"
+version = "1.0.0"
+description = "Sparse-Frame Video Dubbing with 4-Step Inference"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.9"
+authors = [
+    {name = "swordenkisk"}
+]
+keywords = ["video", "diffusion", "dubbing", "ai", "deep-learning"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "torch>=2.1.0",
+    "diffusers>=0.24.0",
+    "transformers>=4.35.0",
+    "accelerate>=0.24.0",
+    "peft>=0.6.0",
+    "xformers>=0.0.22",
+    "fastapi>=0.104.0",
+    "gradio>=4.0.0",
+    "einops>=0.7.0",
+    "facenet-pytorch>=2.5.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+]
+fp8 = [
+    "transformer-engine>=1.0",
+]
+
+[project.scripts]
+infinitetalk = "infinitetalk.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/swordenkisk/infinitetalk"
+Repository = "https://github.com/swordenkisk/infinitetalk"
+Issues = "https://github.com/swordenkisk/infinitetalk/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["infinitetalk*"]
+
+[tool.black]
+line-length = 100
+target-version = ['py39', 'py310', 'py311']
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"

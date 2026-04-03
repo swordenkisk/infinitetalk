@@ -1,0 +1,27 @@
+# Configuration for infinite length video generation
+model:
+  base_model: "stabilityai/stable-video-diffusion-xl"
+  
+sparse_frame:
+  anchor_interval: 30
+  identity_lock_weight: 0.95
+  color_consistency_weight: 0.8
+  max_sequence_length: 100000  # ~55 minutes at 30fps
+  
+chunking:
+  chunk_size: 120
+  overlap: 10
+  
+memory:
+  gradient_checkpointing: true
+  cpu_offload: true
+  vae_slicing: true
+  
+parallelism:
+  enable: true
+  backend: "ulysses"
+  sp_size: 8
+  
+streaming:
+  enabled: true
+  buffer_size: 300

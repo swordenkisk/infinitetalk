@@ -1,0 +1,38 @@
+model:
+  base_model: "stabilityai/stable-video-diffusion-xl"
+  unet_config:
+    in_channels: 8  # 4 for latent + 4 for reference
+    out_channels: 4
+    
+lora:
+  fusionix:
+    path: "loras/fusionix_temporal_consistency.safetensors"
+    scale: 0.8
+    target_modules: ["attn1", "attn2", "temporal_conv"]
+  lightx2v:
+    path: "loras/lightx2v_4step_distilled.safetensors"
+    scale: 0.6
+    target_modules: ["resnets", "temporal_transformer"]
+
+inference:
+  num_steps: 4
+  guidance_scale: 1.5  # Lower for distilled models
+  fps: 30
+  resolution: [1280, 720]  # 720p
+  dtype: "fp16"
+  use_fp8: true
+  
+sparse_frame:
+  anchor_interval: 30
+  identity_lock_weight: 0.95
+  color_consistency_weight: 0.8
+  
+parallelism:
+  enable: true
+  backend: "ulysses"
+  sp_size: 8  # Sequence parallel size
+  
+optimization:
+  compile_unet: true
+  enable_vae_slicing: true
+  enable_xformers: true

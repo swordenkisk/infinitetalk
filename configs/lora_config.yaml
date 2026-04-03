@@ -1,0 +1,28 @@
+# LoRA configuration
+fusionix:
+  name: "fusionix_temporal_consistency"
+  path: "loras/fusionix_temporal_consistency.safetensors"
+  scale: 0.8
+  target_modules:
+    - "attn1"
+    - "attn2"
+    - "temporal_conv"
+    - "temporal_transformer"
+  rank: 64
+  alpha: 128
+  
+lightx2v:
+  name: "lightx2v_4step_distilled"
+  path: "loras/lightx2v_4step_distilled.safetensors"
+  scale: 0.6
+  target_modules:
+    - "resnets"
+    - "temporal_transformer"
+    - "conv_in"
+    - "conv_out"
+  rank: 32
+  alpha: 64
+  
+mixing:
+  method: "weighted_sum"
+  weights: [0.8, 0.6]
